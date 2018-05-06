@@ -1,0 +1,17 @@
+{
+    "presets": [
+        "env",
+        "stage-0",
+        "react"
+    ],
+    "plugins": [
+        ["antd", {
+            "style": false
+        }]
+    ],
+    "env": {
+        "development": {
+            "presets": ["react-hmre"]
+        }
+    }
+}
