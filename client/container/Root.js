@@ -4,9 +4,14 @@ import {Layout, Menu} from 'antd';
 
 const {
     Header,
-    Content,
-    Sider
+    Content
 } = Layout;
+
+const styles = {
+    header: {
+       height: 50,
+    },
+}
 
 
 class Root extends React.Component {
@@ -18,14 +23,16 @@ class Root extends React.Component {
         return (
             <div>
                 <Layout > 
-                    <Header className = "header" >
-                        <div className = "logo" / >
+                    <Header style={styles.header} >
                         <Menu theme = "dark" mode = "horizontal">
-                            <Menu.Item key = "1" > nav 1 </Menu.Item>
-                            <Menu.Item key = "2" > nav 2 </Menu.Item>
-                            <Menu.Item key = "3" > nav 3 </Menu.Item>
+                            <Menu.Item key = "1" >房源选择</Menu.Item>
+                            <Menu.Item key = "2" > 房源预测</Menu.Item>
+                            <Menu.Item key = "3" > 帮助中心</Menu.Item>
                         </Menu>
                     </Header>
+                    <Content>
+
+                    </Content>
                 </Layout>
             </div>
         );

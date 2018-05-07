@@ -6,7 +6,7 @@
     ],
     "plugins": [
         ["antd", {
-            "style": false
+            "style": true
         }]
     ],
     "env": {

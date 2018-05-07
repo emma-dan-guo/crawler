@@ -31,6 +31,7 @@ module.exports = {
                 }],
         }, {
             test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+            exclude: /node_modules/,
             use: [{
                 loader: "url-loader",
                 options: {
@@ -40,15 +41,23 @@ module.exports = {
                 }
             }],
         }, {
-            test: /\.(css|less)$/,
-            exclude: /node_modules/,
+            test: /\.css$/,
+            // exclude: /node_modules/,
              /* 内嵌style形式 */
-            use: IsDev ?
+            use: !IsDev ?
                 ExtractTextPlugin.extract({
                      fallback: 'style-loader',
-                     use: ['css-loader', 'less-loader']
+                     use: ['less-loader']
                 }) :
-                ['style-loader', 'css-loader', 'less-loader']
+                ['style-loader', 'css-loader']
+        }, {
+            test: /\.less$/,
+            // exclude: /node_modules/,
+            use: !IsDev ?
+                 ExtractTextPlugin.extract({
+                     fallback: 'style-loader',
+                     use: ['style-loader', 'css-loader', 'less-loader']
+                 }): ['style-loader', 'css-loader', 'less-loader']
         }]
     },
     plugins: [
