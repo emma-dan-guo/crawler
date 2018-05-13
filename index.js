@@ -4,6 +4,7 @@ var app = express();
 var devConfig = require('./build/webpack.config.dev');
 var prodWebpack = require('./build/webpack.config.prod');
 var CONFIG = require('./conf/config');
+var route = require('./node/routes');
 
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
@@ -44,11 +45,14 @@ if (isDev) {
     app.use(webpackHotMiddleware(compiler));
 }
 
-app.use((req, res) => {
+app.use('/api', route.getRouter());
+
+app.all('*', (req, res) => {
     res.render('index', {
         title: '58爬虫设计',
     })
 });
+
 
 app.listen(3000, function (error) {
     if (error) {

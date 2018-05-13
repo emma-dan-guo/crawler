@@ -1,0 +1,51 @@
+.nav-logo{
+    font-family: DINAlternate-Bold;
+    font-size: 14px;
+    color: #FFFFFF;
+    float: left;
+    display: inline-block;
+    letter-spacing: 0;
+    margin-right: 50px;
+    &:before {
+        content: '';
+        background: url('../img/logo.inline.png');
+        background-size: contain;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+        width: 120px;
+        height: 32px;
+    }
+}
+
+.ant-menu-item {
+    border: none;
+    &:hover {
+        border: none;
+    }
+    a {
+        color: #fff;
+        opacity: .4;
+        transition: opacity .3s;
+    }
+}
+.ant-menu-item-active {
+    a {
+        opacity: .7;
+        border: none;
+    }
+}
+.ant-menu-item-selected {
+    border: none;
+    a {
+        opacity: 1;
+        border: none;
+    }
+}
+.ant-menu-horizontal > .ant-menu-item > a {
+    color: #fff;
+}
+.ant-tabs-ink-bar {
+    width: 0;
+    height: 0;
+}
