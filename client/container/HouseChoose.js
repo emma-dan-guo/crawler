@@ -36,6 +36,9 @@ const styles = {
 class HouseChoose extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            tableList: []
+        }
     }
 
     componentDidMount() {
@@ -52,11 +55,11 @@ class HouseChoose extends React.Component {
         ]
     }
 
-    getInfo() {
+    getInfo(formParams={}) {
         fetch('/api/getUserInfo', {
             method: 'post',
             body: JSON.stringify({
-                account: {}
+                formParams,
             }),
             headers: {
                 'Content-type': 'application/json'
@@ -64,9 +67,11 @@ class HouseChoose extends React.Component {
             credentials: 'same-origin',
         }).then((response) => {
             response.json().then(json => {
-                if (json && json.success === true) {
-                    console.log('操作成功');
+                if (json.message === 'success') {
                     message.success('操作成功');
+                    this.setState({
+                        tableList: json.data.tableList,
+                    })
                 } else {
                     json.message && message.error('操作失败: ' + json.message + '; 请稍后重试');
                 }
@@ -93,14 +98,17 @@ class HouseChoose extends React.Component {
     render() {
         const columns = this.getColumns();
         const dataSource = this.renderDataSource();
+        const {tableList} = this.state;
         return(
             <div>
-                <Filters />
+                < Filters 
+                    getInfo={this.getInfo.bind(this)}
+                / >
                 <div style={styles.mapWrapper}>
-                   <Map/>
+                   <Map tableList={tableList}/>
                 </div>
                 <div style={styles.table}>
-                    <Table bordered columns={columns} dataSource={dataSource} pagination={false} pagination={pagination} style={styles.table}></Table>
+                    <Table bordered columns={columns} dataSource={tableList} pagination={false} pagination={pagination} style={styles.table}></Table>
                 </div>
             </div>
         )

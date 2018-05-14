@@ -84,6 +84,18 @@ class Filters extends React.Component {
             }
         })
     }
+
+    handlePredictClick() {
+        let {getInfo, form} = this.props;
+        const {getFieldsValue, validateFields} = form;
+        validateFields(function (error) {
+            if(!error) {
+                let formObj = getFieldsValue();
+                console.log(formObj);
+                getInfo(formObj);
+            }
+        });
+    }
     
     render() {
         const {getFieldDecorator} = this.props.form;
