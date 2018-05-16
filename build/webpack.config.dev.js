@@ -9,8 +9,6 @@ var devConfig = Object.assign({}, baseConfig, {
     }
 });
 
-console.log(devConfig.plugins);
-
 devConfig.plugins.push(
     new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify('development'),

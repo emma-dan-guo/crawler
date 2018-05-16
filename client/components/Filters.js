@@ -72,11 +72,15 @@ class Filters extends React.Component {
                 }
                 case ("radio"): {
                     return (
-                        <FormItem label={val.label} wrapperCol={{span: 23}} labelCol={{span: 1}} key={val.key}>
-                            <Radio.Group defaultValue="horizontal" onChange={this.handleFormLayoutChange}>
-                                <Radio.Button value="horizontal">Horizontal</Radio.Button>
-                                <Radio.Button value="vertical">Vertical</Radio.Button>
-                                <Radio.Button value="inline">Inline</Radio.Button>
+                        <FormItem label={val.label} wrapperCol={{span: 22}} labelCol={{span: 1}} key={val.key}>
+                            <Radio.Group defaultValue="unlimited" style={{marginLeft: 20}}>
+                                <Radio.Button value="unlimited">不限</Radio.Button>
+                                <Radio.Button value="chaoyang">朝阳区</Radio.Button>
+                                <Radio.Button value="nanguan">南关区</Radio.Button>
+                                <Radio.Button value="kuancheng">宽城区</Radio.Button>
+                                <Radio.Button value="jiutai">九台区</Radio.Button>
+                                <Radio.Button value="lvyuan">绿园区</Radio.Button>
+                                <Radio.Button value="shuangyang">双阳区</Radio.Button>
                             </Radio.Group>
                         </FormItem>
                     )
@@ -115,16 +119,16 @@ class Filters extends React.Component {
                 ]
             }, {
                 key: 'rental', label: '方式', mode: 'select', value: [
-                    {key: 2, value: '不限'},
-                    {key: 0, value: '合租'},
+                    {key: 0, value: '不限'},
                     {key: 1, value: '整租'},
+                    {key: 2, value: '合租'},
                 ]
             }, {key: 'direction', label: '朝向', mode: 'select', value: [
-                    {key: 0, value: '不限'},
-                    {key: 1, value: '朝南'},
-                    {key: 2, value: '朝西'},
-                    {key: 3, value: '朝东'},
-                    {key: 4, value: '朝北'},
+                    {key: 'others', value: '不限'},
+                    {key: 'south', value: '朝南'},
+                    {key: 'west', value: '朝西'},
+                    {key: 'east', value: '朝东'},
+                    {key: 'north', value: '朝北'},
                 ]
             }
         ]

@@ -1,4 +1,5 @@
 var express = require('express');
+var mongoose = require('../../spider/mongoose');
 
 const mockList = [
     {key: 0, date: '2018-5-4', price: '3500', direction: '朝南', areas: '海淀区', href: 'xxxxxxx', methods: '朝南'},
@@ -11,14 +12,20 @@ const mockList = [
     {key: 7, date: '2018-5-4', price: '3500', direction: '朝南', areas: '海淀区', href: 'xxxxxxx', methods: '朝南'},
 ]
 
-function handleGetUserInfo(req, res) {
-    console.log('req-----> 请求接收成功', req.body);
-    res.json({
-        message: 'success',
-        data: {
-            tableList: mockList,
-        }
-    });
+async function handleGetUserInfo(req, res) {
+    console.log('req', req.body);
+    if(JSON.stringify(req.body.formParams) !== '{}') {
+        console.log('筛选条件');
+    } else {
+        var responese = await mongoose.find();
+        console.log('responese', responese);
+        res.json({
+            message: 'success',
+            data: {
+                tableList: responese,
+            }
+        })
+    }
 }
 
 module.exports = {

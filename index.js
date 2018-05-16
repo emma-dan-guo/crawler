@@ -5,6 +5,7 @@ var devConfig = require('./build/webpack.config.dev');
 var prodWebpack = require('./build/webpack.config.prod');
 var CONFIG = require('./conf/config');
 var route = require('./node/routes');
+var spider = require('./spider');
 
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
@@ -27,7 +28,10 @@ app.use(session({
     store: new MongoStore({
         url: CONFIG.session.url
     })
-}))
+}));
+
+//58数据爬取
+spider.init();
 
 var isDev = process.env.NODE_ENV === 'development' || false;
 app.set('view engine', 'ejs');
