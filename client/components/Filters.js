@@ -124,7 +124,7 @@ class Filters extends React.Component {
                     {key: 2, value: '合租'},
                 ]
             }, {key: 'direction', label: '朝向', mode: 'select', value: [
-                    {key: 'others', value: '不限'},
+                    {key: 'unlimited', value: '不限'},
                     {key: 'south', value: '朝南'},
                     {key: 'west', value: '朝西'},
                     {key: 'east', value: '朝东'},

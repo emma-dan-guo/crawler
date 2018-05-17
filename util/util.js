@@ -18,6 +18,7 @@ module.exports = {
     },
     transFormData: function(arr) { // 将数据处理成想要的形式
         var result = arr.map((item, index) => {
+            console.log('item', item);
             var mapMethodToObj = {'整租': '1', '合租': '2'};
             var mapAreasToObj = {'朝阳': 'chaoyang', '二道': 'erdao', '南关': 'nanguan', '宽城': 'kuancheng', '绿园': 'lvyuan', '双阳': 'shuangyang', '九台': 'jiutai'};
             return {
@@ -33,5 +34,8 @@ module.exports = {
             };
         });
         return result;
-    }
+    },
+    // sortArea: function(arr) {
+
+    // }
 };

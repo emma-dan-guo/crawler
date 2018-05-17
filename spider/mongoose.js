@@ -14,6 +14,7 @@ var HouseSchema = mongoose.Schema({
     areas: String,
     price: Number,
     square: String,
+    houseAreas: String,
     methods: String,
     direction: String,
     type: String

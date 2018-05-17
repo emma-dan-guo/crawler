@@ -14,6 +14,11 @@ function homeCrawler(url) {
     return new Promise(resolve => {
         superagent
             .post(url)
+            .set("Accept-Language", "en-US,en")
+            .set("Accept-Encoding", "gzip")
+            .set("Accept", "text/html")
+            .set("Accept-Charset", "utf-8")
+            .set('User-Agent', 'Mozilla/5.0(Macintosh;IntelMacOSX10_7_0)AppleWebKit/535.11(KHTML,likeGecko)Chrome/17.0.963.56Safari/535.11')
             .end(((err, result) => {
                 var $ = cheerio.load(result.res.text);
                 var rentalHref = [];
@@ -31,6 +36,11 @@ function detailCrawler(url) {
     return new Promise(resolve => {
         superagent
             .post(url)
+            .set("Accept-Language", "en-US,en")
+            .set("Accept-Encoding", "gzip")
+            .set("Accept", "text/html")
+            .set("Accept-Charset", "utf-8")
+            .set('User-Agent', 'Mozilla/5.0(Macintosh;IntelMacOSX10_7_0)AppleWebKit/535.11(KHTML,likeGecko)Chrome/17.0.963.56Safari/535.11')
             .end((error, result) => {
                 if (!error) {
                     var $ = cheerio.load(result.res.text);
@@ -59,8 +69,8 @@ function detailCrawler(url) {
                                             rentalDetailInfo['direction'] = $(span).text().trim().replace(/\s+/g, ' ').split(' ')[0];
                                             break;
                                         }
-                                    case (3): { // 所在小区
-                                        rentalDetailInfo['houseAreas'] = $(span).text().trim().replace(/\s+/g, ' ').split(' ')[0];
+                                    case (3): { 
+                                        rentalDetailInfo['houseAreas'] = $(span).text().trim();
                                     }
                                     case (4):
                                         {
@@ -81,6 +91,19 @@ function detailCrawler(url) {
     })
 }
 
+async function handleRestCrawler(arr) {
+    let iNum = parseInt(arr.length / 100) + 1;
+    var infoArr = [];
+    for (let i = 0; i < iNum; i++) {
+        setTimeout(async function() {
+            let a = arr.splice(0, 100);
+            let tmpArr = await Promise.all(a);
+            infoArr.concat(utils.flatten(tmpArr));
+            console.log('infoArr', infoArr);
+        }, 1000 * 60);
+    }
+}
+
 module.exports = {
     init: async function () {
         nodeschedule.scheduleJob('5 * * * * *', async function () {
@@ -91,9 +114,13 @@ module.exports = {
             }
             var hrefList = new Set(utils.flatten(await Promise.all(PromiseArr)));
             hrefList = Array.from(hrefList);
+            // console.log('hrefList', hrefList);
+            // hrefList = [hrefList[0]];
             var detailCrawlerfunc = hrefList.map(v => detailCrawler(v));
+            // var rentalDetailInfoList = await handleRestCrawler(detailCrawlerfunc);
             var rentalDetailInfoList = utils.flatten(await Promise.all(detailCrawlerfunc));
             var finalInfoList = utils.transFormData(rentalDetailInfoList);
+            console.log('finalInfoList', finalInfoList);
             // console.log('rentalDetailInfoList', finalInfoList);
             var newNumber = await new Promise((resolve) => {
                 var newDataNumber = 0;

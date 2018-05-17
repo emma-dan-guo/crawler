@@ -8,7 +8,7 @@ import {
 } from 'antd';
 
 import Filters from '../components/Filters';
-import Map from '../components/Map';
+import Statical from '../components/Statical';
 
 const pagination = {
     total: 0,
@@ -71,6 +71,9 @@ class HouseChoose extends React.Component {
                 return `${text}平方/米`;
             }},
             {title: '小区', ket: 'houseAreas', dataIndex: 'houseAreas'},
+            {title: '朝向', key: 'direction', dataIndex: 'direction', render: function(text){
+                return {'south': '南', 'north': '北', 'east': '东', 'west': '西'}[text];
+            }},
             {title: 'href链接', key: 'url', dataIndex: 'url', render: function(text, record) {
                 return <a href={record._id}>{record._id}</a>;
             }},
@@ -93,8 +96,6 @@ class HouseChoose extends React.Component {
                     // message.success('操作成功');
                     this.setState({
                         tableList: json.data.tableList,
-                    }, () => {
-                        console.log('tableList', this.state.tableList);
                     });
                 } else {
                     json.message && message.error('操作失败: ' + json.message + '; 请稍后重试');
@@ -114,7 +115,7 @@ class HouseChoose extends React.Component {
                     getInfo={this.getInfo.bind(this)}
                 / >
                 <div style={styles.mapWrapper}>
-                   <Map tableList={tableList}/>
+                   <Statical tableList={tableList}/>
                 </div>
                 <div style={styles.table}>
                     <Table bordered columns={columns} dataSource={tableList} pagination={false} pagination={pagination} style={styles.table}></Table>
