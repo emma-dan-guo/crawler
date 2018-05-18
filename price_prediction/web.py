@@ -5,6 +5,7 @@ import numpy as np
 
 app = Flask(__name__)
 clf = joblib.load("model.m")
+# need to revise if model was updated
 mean = 77.68
 maximum = 5233
 minimum = 8
@@ -27,7 +28,6 @@ def predict():
         areas = int(areas) / 5
         direction = int(direction) / 4
         x = np.array([areas, square, direction]).reshape(1, -1)
-        print(areas, square, direction)
         r = clf.predict(x)[0]
         return "{price:" + str(r) + "}"
 
