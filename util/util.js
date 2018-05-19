@@ -13,6 +13,9 @@ function handleMethodsMap(val) {
     return 0;
 }
 
+var mapDirectionToObj = {'南': 2, '北': 3, '东': 1, '西': 4, '不限': 0};
+var mapAreasToObj = {'朝阳': 5, '二道': 1, '南关': 2, '宽城': 3, '绿园': 4, '双阳': 6, '九台': 7};
+
 module.exports = {
     flatten: function flatten(arr) {
         var res = [];
@@ -28,7 +31,6 @@ module.exports = {
     transFormData: function(arr) { // 将数据处理成想要的形式
         var result = arr.map((item, index) => {
             console.log('item', item);
-            var mapAreasToObj = {'朝阳': 5, '二道': 1, '南关': 2, '宽城': 3, '绿园': 4, '双阳': 6, '九台': 7};
             return {
                 _id: item.url,
                 date: new Date().getTime(),
@@ -44,4 +46,17 @@ module.exports = {
         });
         return result;
     },
+    mapAreasToObj: mapAreasToObj,
+    mapDirectionToObj: mapDirectionToObj,
+    transKeyValue: function (obj) { // 翻转对象的key和value
+        let tmpArr = Object.keys(obj).map(v => {
+            let tmp = {};
+            return tmp[obj[v]] = v;
+        });
+        let finalArr = [];
+        tmpArr.forEach(v => {
+            finalArr.push(v);
+        });
+        return finalArr;
+    }
 };

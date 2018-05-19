@@ -10,14 +10,15 @@ db.once('open', function () {
 
 var HouseSchema = mongoose.Schema({
     _id: String,
-    date: Number,
+    date: String,
     areas: String,
     price: Number,
     square: String,
     houseAreas: String,
     methods: String,
     direction: String,
-    type: String
+    type: String,
+    desc: String
 });
 //创建表
 var HouseCol = mongoose.model('house', HouseSchema);

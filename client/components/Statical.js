@@ -18,16 +18,9 @@ class Statical extends React.Component {
     render() {
         const {tableList} = this.props;
         tableList.map(v => {
-            var mapAreas = {
-                'chaoyang': '朝阳',
-                'erdao': '二道',
-                'nanguan': '南关',
-                'kuancheng': '宽城',
-                'lvyuan': '绿园',
-                'shuangyang': '双阳',
-                'jiutai': '九台'
-            }
-            v['areas'] = mapAreas[v.areas] || '其他';
+            let tmp = util.transKeyValue(util.mapAreasToObj);
+            console.log(v);
+            v['areas'] = tmp[v.areas] || '其他';
             return v;
         })
         if (tableList.length > 0) {

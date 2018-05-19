@@ -9,6 +9,8 @@ import {
 
 import Filters from '../components/Filters';
 import Statical from '../components/Statical';
+import HousePredict from '../components/HousePredict';
+import utils from '../../util/util';
 
 const pagination = {
     total: 0,
@@ -49,31 +51,25 @@ class HouseChoose extends React.Component {
     getColumns() {
         return [
             {title: '日期', key: 'date', dataIndex: 'date', render: function(text) {
-                return moment(text).format('YYYY-MM-DD');
+                return moment(parseInt(text)).format('YYYY-MM-DD');
             }},
             {title: '方式', key: 'methods', dataIndex: 'methods', render: function(text) {
                 return [, '整租', '合租'][text];
             }},
             {title: '价格', key: 'price', dataIndex: 'price'},
             {title: '区域', key: 'areas', dataIndex: 'areas', render: function (text) {
-                var mapAreas = {
-                    'chaoyang': '朝阳',
-                    'erdao': '二道',
-                    'nanguan': '南关',
-                    'kuancheng': '宽城',
-                    'lvyuan': '绿园',
-                    'shuangyang': '双阳',
-                    'jiutai': '九台'
-                }
-                return mapAreas[text] || '其他';
+                var obj = utils.transKeyValue(utils.mapAreasToObj);
+                return obj[text] || '其他';
             }},
             {title: '面积', key: 'square', dataIndex: 'square', render: function(text) {
                 return `${text}平方/米`;
             }},
-            {title: '小区', ket: 'houseAreas', dataIndex: 'houseAreas'},
+            {title: '小区', key: 'houseAreas', dataIndex: 'houseAreas'},
             {title: '朝向', key: 'direction', dataIndex: 'direction', render: function(text){
-                return {'south': '南', 'north': '北', 'east': '东', 'west': '西'}[text];
+                var obj = utils.transKeyValue(utils.mapDirectionToObj);
+                return obj[text];
             }},
+            {title: '说明', key: 'desc', dataIndex: 'desc'},
             {title: 'href链接', key: 'url', dataIndex: 'url', render: function(text, record) {
                 return <a href={record._id}>{record._id}</a>;
             }},
@@ -116,6 +112,9 @@ class HouseChoose extends React.Component {
                 / >
                 <div style={styles.mapWrapper}>
                    <Statical tableList={tableList}/>
+                </div>
+                <div style={styles.mapWrapper}>
+                    <HousePredict />
                 </div>
                 <div style={styles.table}>
                     <Table bordered columns={columns} dataSource={tableList} pagination={false} pagination={pagination} style={styles.table}></Table>

@@ -8,7 +8,6 @@ import {
 import {Layout, Menu, AutoComplete} from 'antd';
 
 import HouseChoose from './HouseChoose';
-import HousePredict from './HousePredict';
 import '../constant/css/root.less';
 
 const {
@@ -31,10 +30,6 @@ const styles = {
     }
 
 }
-
-const Home1 = () => (
-    <div>这里是home2</div>
-)
 
 const Home2 = () => (
     <div>这里是home3</div>
@@ -61,9 +56,6 @@ class Root extends React.Component {
                                     <MenuItem key="home">
                                         <Link to = '/' key="home"> 房源选择 </Link>
                                     </MenuItem>
-                                    <MenuItem key="analysis">
-                                        <Link to = "/analysis" key="analysis"> 房源预测 </Link>
-                                    </MenuItem>
                                     <MenuItem key="help">
                                         <Link to = "/help" key="help"> 帮助 </Link>
                                     </MenuItem>
@@ -71,7 +63,6 @@ class Root extends React.Component {
                             </div>
                             <div style={styles.content}>
                                 <Route exact path="/" component={HouseChoose} />
-                                <Route path="/analysis" component={HousePredict} />
                                 <Route path="/help" component={Home2} />
                             </div>
                         </div>
