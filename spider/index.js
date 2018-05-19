@@ -54,7 +54,14 @@ function detailCrawler(url) {
                                 switch (i) {
                                     case (0):
                                         { // 租赁方式
-                                            rentalDetailInfo['methods'] = $(span).text().trim();
+                                            let methodsInfo = $(span).text().trim();
+                                            if (methodsInfo.indexOf('合租') > -1) {
+                                                methodsArr = methodsInfo.split('-').map(v => v.trim());
+                                                rentalDetailInfo['methods'] = methodsArr[0];
+                                                rentalDetailInfo['desc'] = methodsArr[1] + '-' + methodsArr[2];
+                                            } else {
+                                                rentalDetailInfo['methods'] = $(span).text().trim();
+                                            }
                                             break;
                                         }
                                     case (1):
@@ -91,19 +98,6 @@ function detailCrawler(url) {
     })
 }
 
-async function handleRestCrawler(arr) {
-    let iNum = parseInt(arr.length / 100) + 1;
-    var infoArr = [];
-    for (let i = 0; i < iNum; i++) {
-        setTimeout(async function() {
-            let a = arr.splice(0, 100);
-            let tmpArr = await Promise.all(a);
-            infoArr.concat(utils.flatten(tmpArr));
-            console.log('infoArr', infoArr);
-        }, 1000 * 60);
-    }
-}
-
 module.exports = {
     init: async function () {
         nodeschedule.scheduleJob('5 * * * * *', async function () {
@@ -114,8 +108,8 @@ module.exports = {
             }
             var hrefList = new Set(utils.flatten(await Promise.all(PromiseArr)));
             hrefList = Array.from(hrefList);
-            // console.log('hrefList', hrefList);
             // hrefList = [hrefList[0]];
+            console.log('hrefList', hrefList);
             var detailCrawlerfunc = hrefList.map(v => detailCrawler(v));
             // var rentalDetailInfoList = await handleRestCrawler(detailCrawlerfunc);
             var rentalDetailInfoList = utils.flatten(await Promise.all(detailCrawlerfunc));
