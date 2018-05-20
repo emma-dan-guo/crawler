@@ -1,5 +1,6 @@
 var express = require('express');
 var mongoose = require('../../spider/mongoose');
+var utils = require('../../util/util');
 var _ = require('lodash');
 
 async function handleGetUserInfo(req, res) {
@@ -25,11 +26,29 @@ async function handleGetUserInfo(req, res) {
     }
 }
 
+async function handleFilterInfo(req, res) {
+    var formParams = req.body.formParams;
+    var priceArr = ['', '0-1000', '1000-2000', '2000-3000', '3000-4000', '4000-5000', '5000-#'];
+    if(priceArr[formParams.price]) {
+        var priceStr = priceArr[formParams.price];
+        var minPrice = priceArr.split('-')[0];
+        var maxPrice = priceArr.split('-')[1];
+    }
+    var tmp = {$gt: minPrice};
+    if(maxPrice !== '#') {
+        tmp['$lte'] = maxPrice;
+    }
+    formParams.price = tmp;
+    var response = mongoose.find(formParams);
+    console.log('response');
+}
+
 module.exports = {
     getRouter: function() {
         var router = express.Router();
-        router.
-            use('/getUserInfo', handleGetUserInfo);
+        router
+            .use('/filterInfo', handleFilterInfo)
+            .use('/getUserInfo', handleGetUserInfo);
         return router;
     }
 }

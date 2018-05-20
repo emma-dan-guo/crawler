@@ -31,7 +31,7 @@ app.use(session({
 }));
 
 //58数据爬取
-spider.init();
+// spider.init();
 
 var isDev = process.env.NODE_ENV === 'development' || false;
 app.set('view engine', 'ejs');

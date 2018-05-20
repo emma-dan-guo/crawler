@@ -19,7 +19,6 @@ class Statical extends React.Component {
         const {tableList} = this.props;
         tableList.map(v => {
             let tmp = util.transKeyValue(util.mapAreasToObj);
-            console.log(v);
             v['areas'] = tmp[v.areas] || '其他';
             return v;
         })
@@ -27,7 +26,6 @@ class Statical extends React.Component {
              var areas = _.groupBy(tableList, function (item) {
                  return item.areas;
              });
-             console.log('areas', areas);
              var data = [];
              Object.keys(areas).forEach(key => {
                  data.push({

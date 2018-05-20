@@ -104,8 +104,14 @@ class Filters extends React.Component {
     render() {
         const {getFieldDecorator} = this.props.form;
         const formList = [
-            {key: 'areas', label: '区域',mode: 'radio', value: [
-                    {key: 'name', value: '有待填写'},
+           {key: 'areas', label: '区域', mode: 'radio', value: [
+                    {key: 5, value: '朝阳'},
+                    {key: 1, value: '二道'},
+                    {key: 2, value: '南关'},
+                    {key: 3, value: '宽城'},
+                    {key: 4, value: '绿园'},
+                    {key: 6, value: '双阳'},
+                    {key: 7, value: '九台'}
                 ]
             }, {
                 key: 'price', label: '价格', mode: 'select', value: [
@@ -124,11 +130,11 @@ class Filters extends React.Component {
                     {key: 2, value: '合租'},
                 ]
             }, {key: 'direction', label: '朝向', mode: 'select', value: [
-                    {key: 'unlimited', value: '不限'},
-                    {key: 'south', value: '朝南'},
-                    {key: 'west', value: '朝西'},
-                    {key: 'east', value: '朝东'},
-                    {key: 'north', value: '朝北'},
+                    {key: 0, value: '不限'},
+                    {key: 2, value: '朝南'},
+                    {key: 4, value: '朝西'},
+                    {key: 1, value: '朝东'},
+                    {key: 3, value: '朝北'},
                 ]
             }
         ]

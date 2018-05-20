@@ -30,9 +30,12 @@ const styles = {
     },
     mapWrapper: {
         background: 'white',
-        // width: '794px',
         height: '400px',
         marginTop: '10px',
+    },
+    houseWrapper: {
+        background: 'white',
+        marginTop: '10px'
     }
 }
 
@@ -76,6 +79,31 @@ class HouseChoose extends React.Component {
         ]
     }
 
+    handleInfo(formParams) {
+        fetch('/api/filterInfo', {
+            method: 'post',
+            body: JSON.stringify({
+                formParams,
+            }),
+            headers: {
+                'Content-type': 'application/json'
+            },
+            credentials: 'same-origin',
+        }).then(response => {
+            response.json().then(json => {
+                if(json.message === 'success') {
+                    this.setState({
+                        tableList: json.data.tableList,
+                    });
+                } else {
+                    json.message && message.error('操作失败: ' + json.message + '; 请稍后重试');
+                }
+            })
+        }).catch(e => {
+            message.error('操作失败！' + e);
+        })
+    } 
+
     getInfo(formParams={}) {
         fetch('/api/getUserInfo', {
             method: 'post',
@@ -108,13 +136,13 @@ class HouseChoose extends React.Component {
         return(
             <div>
                 < Filters 
-                    getInfo={this.getInfo.bind(this)}
+                    handleInfo={this.handleInfo.bind(this)}
                 / >
-                <div style={styles.mapWrapper}>
-                   <Statical tableList={tableList}/>
+                <div style={styles.houseWrapper}>
+                    < HousePredict / >
                 </div>
                 <div style={styles.mapWrapper}>
-                    <HousePredict />
+                   <Statical tableList={tableList}/>
                 </div>
                 <div style={styles.table}>
                     <Table bordered columns={columns} dataSource={tableList} pagination={false} pagination={pagination} style={styles.table}></Table>
