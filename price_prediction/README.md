@@ -5,13 +5,13 @@ author : @wotchin
 使用sklearn来实现算法。自动评估最优参数。
 ## API接口
 1. 接口示例：
-> http://127.0.0.1:8080/predict
+> http://127.0.0.1:3000/predict
 
 2. 协议：POST
 3. 格式示例：
 使用`curl`工具演示为：
 ```$xslt
-curl -d "areas=0&square=100&direction=0" http://127.0.0.1:8080/predict
+curl -d "areas=0&square=100&direction=0" http://127.0.0.1:3000/predict
 ```
 返回JSON格式数据：
 ```$xslt
